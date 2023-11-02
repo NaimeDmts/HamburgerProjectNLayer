@@ -1,0 +1,55 @@
+﻿@using HamburgerProject.UI.Models.VMs.SiparisVMs;
+@model IList<SiparisVM>
+@{
+    ViewData["Title"] = "Siparis";
+}
+
+<h1>Menu Listesi</h1>
+
+<a asp-action="SiparisAdd" class="btn btn-primary">Sipariş Olıştur</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Boyut</th>
+            <th>Adet</th>
+            <th>Menü Adı</th>
+            <th>Menu Fiyatı</th>
+            <th>Ekstra Malzemeler</th>
+            <th>Toplam Fiyat</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+                <td>@item.Boyut</td>
+                <td>@item.Adet</td>
+                <td>@item.Menu.Name</td>
+                <td>@item.Menu.Price ₺</td>
+                <td>
+                    @foreach (var ekstraMalzeme in item.EkstraMalzemes)
+                    {
+                        <span>@ekstraMalzeme.Name - @ekstraMalzeme.Price ₺</span>
+                      
+                    }
+                </td>
+                <td>
+                    @{
+                        var totalPrice = item.Adet * (item.Menu.Price + item.EkstraMalzemes.Sum(em => em.Price) + Convert.ToInt32(item.Boyut));
+                    }
+                    @totalPrice ₺
+                </td>
+
+                <td>
+                    <a asp-action="SiparisEdit" asp-route-Id="@item.Id" class="btn btn-warning "> Edit</a>
+                    <a asp-action="SiparisDelete" asp-route-Id="@item.Id" class="btn btn-danger" onclick="DeleteSiparis(@item.Id)"> Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,49 @@
+﻿@using HamburgerProject.UI.Models.VMs.MenuVMs;
+@model IList<MenuVM>
+@{
+    ViewData["Title"] = "MenuListesi";
+}
+
+<h1>Menu Listesi</h1>
+
+<a asp-action="MenuAdd" class="btn btn-primary">Menu Ekle</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Menu Adı
+            </th>
+            <th>
+                Menu Fiyatı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="MenuEdit" asp-route-Id="@item.Id" class="btn btn-warning "> Edit</a>
+                    <a asp-action="MenuDelete" asp-route-Id="@item.Id" class="btn btn-danger" onclick="DeleteMenu(@item.Id)"> Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -1,0 +1,49 @@
+﻿@using HamburgerProject.UI.Models.VMs.EkstraMalzemeVMs;
+@model IList<EkstraMalzemeVM>
+@{
+    ViewData["Title"] = "EkstraMalzemeListesi";
+}
+
+<h1>Ekstra Malzeme Listesi</h1>
+
+<a asp-action="EkstraMalzemeAdd" class="btn btn-primary">Ekstra Malzeme Ekle</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Malzeme Adı
+            </th>
+            <th>
+                Malzeme Fiyatı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="EkstraMalzemeEdit" asp-route-Id="@item.Id" class="btn btn-warning "> Edit</a>
+                    <a asp-action="EkstraMalzemeDelete" asp-route-Id="@item.Id" class="btn btn-danger" onclick="DeleteMalzeme(@item.Id)"> Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
